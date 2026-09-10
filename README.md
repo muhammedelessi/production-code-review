@@ -8,6 +8,19 @@ A reusable, platform-agnostic AI agent skill for rigorous production code review
 
 The skill is designed as a production gate, not a style linter. It reviews first, reports evidence, waits for approval before fixes, and finishes with a release recommendation.
 
+## Compatible environments
+
+This skill can be used with:
+
+- Lovable
+- OpenAI Codex
+- Cursor
+- Visual Studio Code with GitHub Copilot Agent Skills
+- Google Antigravity
+- Other coding agents and vibe-coding tools that support the Agent Skills / `SKILL.md` format
+
+The review logic is editor-independent. Installation and discovery differ by platform, but the same `SKILL.md` and references can be reused.
+
 ## What it does
 
 - Reviews a full repository, selected files, diff, commit, pull request, or pre-release surface
@@ -17,17 +30,91 @@ The skill is designed as a production gate, not a style linter. It reviews first
 - Never modifies code during the initial review
 - Produces evidence-based findings and a `GO`, `CONDITIONAL`, or `NO-GO` recommendation
 
-## Import into Lovable
+## Installation and usage
 
-1. Open your Lovable workspace.
-2. Go to **Settings -> Skills -> Import -> GitHub**.
-3. Paste this repository URL:
+### Lovable
+
+Open your Lovable workspace and go to:
+
+**Settings -> Skills -> Import -> GitHub**
+
+Paste:
 
 ```text
 https://github.com/muhammedelessi/production-code-review
 ```
 
-4. Import the skill and keep it enabled for projects where you want structured engineering review.
+Keep the skill enabled for projects where you want structured engineering review.
+
+### OpenAI Codex
+
+Use Codex's skill installer to install the skill from this GitHub repository, or place it under your project's Agent Skills directory, for example:
+
+```text
+.agents/skills/production-code-review/
+```
+
+Keep the repository structure intact so the agent can load the stack-specific references when needed.
+
+### Cursor
+
+Clone or copy this repository into one of Cursor's supported skill locations.
+
+Project-level examples:
+
+```text
+.agents/skills/production-code-review/
+.cursor/skills/production-code-review/
+```
+
+User-level examples:
+
+```text
+~/.agents/skills/production-code-review/
+~/.cursor/skills/production-code-review/
+```
+
+Cursor can discover the skill automatically for review-related requests or invoke it from Agent chat.
+
+### Visual Studio Code / GitHub Copilot
+
+Copy or clone the repository into a supported Agent Skills directory.
+
+Project-level examples:
+
+```text
+.github/skills/production-code-review/
+.agents/skills/production-code-review/
+```
+
+User-level examples:
+
+```text
+~/.copilot/skills/production-code-review/
+~/.agents/skills/production-code-review/
+```
+
+VS Code can load the skill automatically when relevant or invoke it directly from Copilot Chat.
+
+### Google Antigravity
+
+Project/workspace scope:
+
+```text
+<project-root>/.agents/skills/production-code-review/
+```
+
+Global scope for Antigravity IDE:
+
+```text
+~/.gemini/config/skills/production-code-review/
+```
+
+Use project scope when the review standard should travel with the repository, or global scope when you want it available across projects on your machine.
+
+### Other Agent Skills-compatible tools
+
+Place the repository under the tool's supported skills directory and keep `SKILL.md` as the entrypoint. The review workflow is portable as long as the agent can read the referenced files.
 
 ## Example requests
 
@@ -45,6 +132,10 @@ Audit the architecture and identify the highest-risk maintainability problems. D
 
 ```text
 Review this API and database flow for data-integrity and authorization issues.
+```
+
+```text
+Review this pull request and give me a GO, CONDITIONAL, or NO-GO recommendation.
 ```
 
 ## Review philosophy
